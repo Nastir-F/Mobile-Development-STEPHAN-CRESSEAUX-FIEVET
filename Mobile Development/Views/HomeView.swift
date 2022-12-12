@@ -9,14 +9,14 @@ import SwiftUI
 
 struct HomeView: View {
     var viewModel = ViewModel()
-    @State private var dayOne: String = "08T"
+    @State private var dayOneNavigation: Bool = true
     
     var body: some View {
         VStack {
             Text("Titre Application")
             NavigationView() {
                 List(viewModel.eventsArray, id: \.activity) { event in
-                    if (event.start.contains(dayOne)) {
+                    if ((event.isDayOne && dayOneNavigation) || (!event.isDayOne && !dayOneNavigation) ) {
                         NavigationLink(destination: EventDetail(event: event)) {
                             EventRow(event: event)
                         }
@@ -25,10 +25,10 @@ struct HomeView: View {
                 .navigationTitle("Events")
                 .toolbar {
                     Button("Day One") {
-                        self.dayOne = "08T"
+                        self.dayOneNavigation = true
                     }
                     Button("Day Two") {
-                        self.dayOne = "09T"
+                        self.dayOneNavigation = false
                     }
                 }
                 
