@@ -13,7 +13,7 @@ struct Speaker {
     let lastName: String
 }
 
-struct Event {
+struct Event{
     let activity: String
     let type: String
     let start: String // TODO : passez en Date
@@ -23,3 +23,4 @@ struct Event {
     let notes: String
     
 }
+
