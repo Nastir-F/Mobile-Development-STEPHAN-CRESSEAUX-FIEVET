@@ -41,7 +41,7 @@ struct HomeView: View {
                     }
                 }
                 .onAppear {
-                    viewModel.fetch()
+                    viewModel.fetchEvent()
                 }
                 
             }

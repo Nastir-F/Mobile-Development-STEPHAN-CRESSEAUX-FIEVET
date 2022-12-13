@@ -21,6 +21,6 @@ struct EventDetail: View {
 
 struct EventDetail_Previews: PreviewProvider {
     static var previews: some View {
-        EventDetail(event: Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00", end: "2023-02-08T09:30:00", location: "President's dining hall", notes: "Belinda's going to need a projector for her presentation")))
+        EventDetail(event: Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00.000Z", end: "2023-02-08T09:30:00.000Z", location: "President's dining hall", notes: "Belinda's going to need a projector for her presentation")))
     }
 }
