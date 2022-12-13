@@ -19,16 +19,17 @@ struct EventRow: View {
     
     var body: some View {
         HStack() {
-            Image(event.type)
+            Image(event.fields.type)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 30)
-            Text(event.activity)
+            Text(event.fields.activity)
                 .fontWeight(.bold)
-            HStack() {
-                Text(dateFormatter.date(from: event.start) ?? Date(), style: .time)
+            HStack {
+                // Drop .000Z for the format
+                Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time)
                 Text("-")
-                Text(dateFormatter.date(from: event.end) ?? Date(), style: .time)
+                Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time)
             }
         }
     }
@@ -36,6 +37,6 @@ struct EventRow: View {
 
 struct EventRow_Previews: PreviewProvider {
     static var previews: some View {
-        EventRow(event: Event(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00", end: "2023-02-08T09:30:00", location: "President's dining hall", speakers: [Speaker(firstName: "Belinda", lastName: "Chen"), Speaker(firstName: "Deepa", lastName: "Wartak")], notes: "Belinda's going to need a projector for her presentation"))
+        EventRow(event: Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00.000Z", end: "2023-02-08T09:30:00.000Z", location: "President's dining hall", notes: "Belinda's going to need a projector for her presentation")))
     }
 }

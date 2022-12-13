@@ -7,7 +7,16 @@
 
 import Foundation
 
-struct ViewModel {
-    // Load les données depuis ModelData() (cf. TP 02)
-    var eventsArray: [Event] = [Event(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00", end: "2023-02-08T09:30:00", location: "oui", speakers: [Speaker(firstName: "oui", lastName: "oui")], notes: "oui"), Event(activity: "Welcome Breakfast", type: "Meal", start: "2023-02-08T09:00:00", end: "2023-02-08T09:30:00", location: "oui", speakers: [Speaker(firstName: "oui", lastName: "oui")], notes: "oui"), Event(activity: "Building an alert system that works for everyone", type: "Panel", start: "2023-02-08T09:00:00", end: "2023-02-08T09:30:00", location: "oui", speakers: [Speaker(firstName: "oui", lastName: "oui")], notes: "oui"), Event(activity: "Opening remarks", type: "Keynote", start: "2023-02-09T09:00:00", end: "2023-02-08T09:30:00", location: "oui", speakers: [Speaker(firstName: "oui", lastName: "oui")], notes: "oui")]
+class ViewModel : ObservableObject {
+    var events: [Event] = [Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00.000Z", end: "2023-02-08T09:30:00.000Z", location: "President's dining hall", notes: "Belinda's going to need a projector for her presentation"))]
+    
+    func fetchEvent() {
+        RequestFactory().getEventList { events in
+            if let events = events {
+                self.events = events.sorted {
+                    $0.fields.start < $1.fields.start
+                }
+            }
+        }
+    }
 }

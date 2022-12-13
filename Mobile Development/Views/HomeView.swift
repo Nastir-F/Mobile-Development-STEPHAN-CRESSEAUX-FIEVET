@@ -8,28 +8,40 @@
 import SwiftUI
 
 struct HomeView: View {
-    var viewModel = ViewModel()
-    @State private var dayOneNavigation: Bool = true
+    @StateObject var viewModel = ViewModel()
+    @State private var dayOne: Bool = true
     
     var body: some View {
         VStack {
             Text("Titre Application")
             NavigationView() {
-                List(viewModel.eventsArray, id: \.activity) { event in
-                    if ((event.isDayOne && dayOneNavigation) || (!event.isDayOne && !dayOneNavigation) ) {
-                        NavigationLink(destination: EventDetail(event: event)) {
-                            EventRow(event: event)
+                List(viewModel.events, id: \.id) { event in
+                    if (dayOne) {
+                        if (event.fields.start.contains("08T")) {
+                            NavigationLink(destination: EventDetail(event: event)) {
+                                EventRow(event: event)
+                            }
+                        }
+                    } else {
+                        if (event.fields.start.contains("09T")) {
+                            NavigationLink(destination: EventDetail(event: event)) {
+                                EventRow(event: event)
+                            }
                         }
                     }
+                    
                 }
                 .navigationTitle("Events")
                 .toolbar {
                     Button("Day One") {
-                        self.dayOneNavigation = true
+                        self.dayOne = true
                     }
                     Button("Day Two") {
-                        self.dayOneNavigation = false
+                        self.dayOne = false
                     }
+                }
+                .onAppear {
+                    viewModel.fetchEvent()
                 }
                 
             }

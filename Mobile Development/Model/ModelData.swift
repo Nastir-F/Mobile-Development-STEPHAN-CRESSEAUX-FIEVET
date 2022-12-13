@@ -2,71 +2,51 @@
 //  ModelData.swift
 //  Mobile Development
 //
-//  Created by user231747 on 12/12/22.
+//  Created by user231371 on 12/12/22.
 //
 
 import Foundation
-
-struct _Speaker: Codable {
-    let firstName: String
-    let lastName: String
-}
-
-struct _Event: Codable{
-    let activity: String
-    let type: String
-    let start: String // TODO : passez en Date
-    let end: String // TODO : passez en Date
-    let location: String
-    let speakers: [_Speaker]
-    let notes: String
-}
+import UIKit
 
 struct Records: Codable {
-    let records: [_Event]
+    let records: [Event]?
 }
 
-// get the api
-
-// Créer une URL à partir du lien AirTable
-
-
-protocol RequestProtocol {
-    func createRequest(urlStr: String)-> URLRequest
-    func getEventList(callback: @escaping ([_Event]?) -> Void)
+protocol RequestFactoryProtocol {
+    func createRequest(urlStr: String) -> URLRequest
+    func getEventList(callback: @escaping ([Event]?) -> Void)
 }
 
-struct Request : RequestProtocol{
+struct RequestFactory: RequestFactoryProtocol {
     func createRequest(urlStr: String) -> URLRequest {
         let url: URL = URL(string: urlStr)!
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
-        let accessToken = "keymaCPSexfxC2hF9"
-        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        let accesToken = "keymaCPSexfxC2hF9"
+        request.setValue("Bearer \(accesToken)", forHTTPHeaderField: "Authorization")
         
         return request
-        
     }
     
-    func getEventList(callback: @escaping ([_Event]?) -> Void) {
+    func getEventList(callback: @escaping ([Event]?) -> Void) {
         let session = URLSession(configuration: .default)
-        let task = session.dataTask(with:createRequest(urlStr: "https://airtable.com/appLxCaCuYWnjaSKB/tblon3PzkaCkPGUnr/viwPg3QwJjoQEsQSQ?blocks=bipJnNThSVcQsRsOE")) { data, response, error in
+        let request = createRequest(urlStr: "https://api.airtable.com/v0/appLxCaCuYWnjaSKB/%F0%9F%93%86%20Schedule")
+        let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data, error == nil else {
-                //gérer l'erreur
+                // error
                 callback(nil)
                 return
             }
             guard let responseHttp = response as? HTTPURLResponse, responseHttp.statusCode == 200 else {
-                //gérer mon erreur
+                // error
                 callback(nil)
                 return
             }
             if let response = try? JSONDecoder().decode(Records.self, from: data) {
                 callback(response.records)
-            }
-            else {
+            } else {
                 callback(nil)
             }
         }

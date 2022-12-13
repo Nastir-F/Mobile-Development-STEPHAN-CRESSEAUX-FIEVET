@@ -13,31 +13,25 @@ struct Speaker {
     let lastName: String
 }
 
-struct Event{
+struct Fields: Codable {
     let activity: String
     let type: String
     let start: String
     let end: String
     let location: String
-    let speakers: [Speaker]
-    let notes: String
-    var isDayOne = true
+    let notes: String?
     
-    init(activity: String, type: String, start: String, end: String, location: String, speakers: [Speaker], notes: String) {
-        self.activity = activity
-        self.type = type
-        self.start = start
-        self.end = end
-        self.location = location
-        self.speakers = speakers
-        self.notes = notes
-        
-        if (self.start.contains("08T")) {
-            isDayOne = true
-        } else {
-            isDayOne = false
-        }
+    enum CodingKeys: String, CodingKey {
+        case activity = "Activity"
+        case type = "Type"
+        case start = "Start"
+        case end = "End"
+        case location = "Location"
+        case notes = "Notes"
     }
-    
 }
 
+struct Event: Codable {
+    let id: String
+    let fields: Fields
+}
