@@ -9,35 +9,42 @@ import SwiftUI
 
 struct HomeView: View {
     @StateObject var viewModel = ViewModel()
-    @State private var dayOne: Bool = true
-        
+    @State private var selectedDay = DayFilter.dayOne
+    @State private var selectedType = TypeFilter.all
+    @State private var selectedLocations = LocationFilter.all
+    
     var body: some View {
         VStack {
             Text("Titre Application")  
             NavigationView() {
-                List(viewModel.events, id: \.id) { event in
-                    if (dayOne) {
-                        if (event.fields.start.contains("08T")) {
-                            NavigationLink(destination: EventDetail(event: event)) {
-                                EventRow(event: event)
-                            }
-                        }
-                    } else {
-                        if (event.fields.start.contains("09T")) {
-                            NavigationLink(destination: EventDetail(event: event)) {
-                                EventRow(event: event)
-                            }
-                        }
+                List(self.filterEvent(), id: \.id) { event in
+                    NavigationLink(destination: EventDetail(event: event)) {
+                        EventRow(event: event)
                     }
-                    
                 }
                 .navigationTitle("Events")
                 .toolbar {
-                    Button("Day One") {
-                        self.dayOne = true
+                    // Voir si le .animation() rend bien selon CLOCLO
+                    ToolbarItem(placement: .confirmationAction) {
+                        Picker("", selection: $selectedDay/*.animation()*/) {
+                            ForEach(DayFilter.allDays, id: \.self) { filter in
+                                Text(filter.rawValue)
+                            }
+                        }
                     }
-                    Button("Day Two") {
-                        self.dayOne = false
+                    ToolbarItem(placement: .confirmationAction) {
+                        Picker("", selection: $selectedType/*.animation()*/) {
+                            ForEach(TypeFilter.allTypes, id: \.self) { filter in
+                                Text(filter.rawValue)
+                            }
+                        }
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Picker("", selection: $selectedLocations/*.animation()*/) {
+                            ForEach(LocationFilter.allLocations, id: \.self) { filter in
+                                Text(filter.rawValue)
+                            }
+                        }
                     }
                 }
                 .onAppear {
@@ -46,6 +53,35 @@ struct HomeView: View {
             }
             Text("Footer")
         }
+    }
+    
+    func filterEvent() -> [Event] {
+        var displayEvents: [Event] = []
+        // filter by day
+        if (self.selectedDay == .dayOne) {
+            displayEvents = viewModel.events.filter {
+                $0.fields.start.contains("08T")
+            }
+        } else {
+            displayEvents =  viewModel.events.filter {
+                $0.fields.start.contains("09T")
+            }
+        }
+        
+        // filter by type
+        if (self.selectedType != .all) {
+            displayEvents = displayEvents.filter {
+                $0.fields.type.contains(selectedType.rawValue)
+            }
+        }
+        // filter by location
+        if (self.selectedLocations != .all) {
+            displayEvents = displayEvents.filter {
+                $0.fields.location.contains(selectedLocations.rawValue)
+            }
+        }
+        
+        return displayEvents
     }
 }
 
