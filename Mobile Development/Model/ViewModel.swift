@@ -18,14 +18,13 @@ class ViewModel : ObservableObject {
             }
         }
     }
-    func fetchSpeaker() {
-        RequestFactory().getSpeakerList { speakers in
-            if let speakers = speakers {
-                DispatchQueue.main.async {
-                    self.speakers = [Speaker](speakers)
+    
+    func fetchSpeakerByEvent(speakersId: [String]) {
+        for speakerId in speakersId {
+            RequestFactory().getSpeakerById(speakerId: speakerId) { speaker in
+                if let speaker = speaker {
+                    self.speakers.append(speaker)
                 }
-            } else {
-                print("les speakers n'ont pas été récupérés")
             }
         }
     }

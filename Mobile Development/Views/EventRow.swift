@@ -37,6 +37,6 @@ struct EventRow: View {
 
 struct EventRow_Previews: PreviewProvider {
     static var previews: some View {
-        EventRow(event: Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00.000Z", end: "2023-02-08T09:30:00.000Z", location: "President's dining hall", notes: "Belinda's going to need a projector for her presentation")))
+        EventRow(event: Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00.000Z", end: "2023-02-08T09:30:00.000Z", location: "President's dining hall", speakers: ["recMsLQRE21DymLru", "recS22dk8RoplL1pN"], notes: "Belinda's going to need a projector for her presentation")))
     }
 }

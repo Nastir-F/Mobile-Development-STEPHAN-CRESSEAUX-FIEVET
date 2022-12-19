@@ -12,14 +12,10 @@ struct Records: Codable {
     let records: [Event]?
 }
 
-struct RecordsSpeakers: Codable {
-    let recordsSpeakers: [Speaker]?
-}
-
 protocol RequestFactoryProtocol {
     func createRequest(urlStr: String) -> URLRequest
     func getEventList(callback: @escaping ([Event]?) -> Void)
-    func getSpeakerList(callback: @escaping ([Speaker]?) -> Void)
+    func getSpeakerById(speakerId: String, callback: @escaping (Speaker?) -> Void)
 }
 
 struct RequestFactory: RequestFactoryProtocol {
@@ -57,26 +53,27 @@ struct RequestFactory: RequestFactoryProtocol {
         }
         task.resume()
     }
-    func getSpeakerList(callback: @escaping ([Speaker]?) -> Void) {
-                let session = URLSession(configuration: .default)
-                let request = createRequest(urlStr: "https://api.airtable.com/v0/appLxCaCuYWnjaSKB/%F0%9F%8E%A4%20Speakers")
-                let task = session.dataTask(with: request) { (data, response, error) in
-                    guard let data = data, error == nil else {
-                        // error
-                        callback(nil)
-                        return
-                    }
-                    guard let responseHttp = response as? HTTPURLResponse, responseHttp.statusCode == 200 else {
-                        // error
-                        callback(nil)
-                        return
-                    }
-                    if let response = try? JSONDecoder().decode(RecordsSpeakers.self, from: data) {
-                        callback(response.recordsSpeakers)
-                    } else {
-                        callback(nil)
-                    }
-                }
-                task.resume()
+    
+    func getSpeakerById(speakerId: String, callback: @escaping (Speaker?) -> Void) {
+        let session = URLSession(configuration: .default)
+        let request = createRequest(urlStr: "https://api.airtable.com/v0/appLxCaCuYWnjaSKB/%F0%9F%8E%A4%20Speakers/\(speakerId)")
+        let task = session.dataTask(with: request) { (data, response, error) in
+            guard let data = data, error == nil else {
+                // error
+                callback(nil)
+                return
             }
+            guard let responseHttp = response as? HTTPURLResponse, responseHttp.statusCode == 200 else {
+                // error
+                callback(nil)
+                return
+            }
+            if let response = try? JSONDecoder().decode(Speaker.self, from: data) {
+                callback(response)
+            } else {
+                callback(nil)
+            }
+        }
+        task.resume()
+    }
 }

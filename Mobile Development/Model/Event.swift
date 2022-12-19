@@ -14,6 +14,7 @@ struct Fields: Codable {
     let start: String
     let end: String
     let location: String
+    let speakers: [String]?
     let notes: String?
     
     enum CodingKeys: String, CodingKey {
@@ -22,6 +23,7 @@ struct Fields: Codable {
         case start = "Start"
         case end = "End"
         case location = "Location"
+        case speakers = "Speaker(s)"
         case notes = "Notes"
     }
 }

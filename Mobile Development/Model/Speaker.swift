@@ -8,7 +8,7 @@
 import Foundation
 
 struct FieldsSpeaker: Codable {
-    let fullName: String?
+    let fullName: String
     
     enum CodingKeys: String, CodingKey {
         case fullName = "Name"
