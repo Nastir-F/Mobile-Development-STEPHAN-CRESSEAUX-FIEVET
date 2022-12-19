@@ -13,7 +13,7 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            Text("Titre Application")
+            Text("Titre Application")  
             NavigationView() {
                 List(viewModel.events, id: \.id) { event in
                     if (dayOne) {
