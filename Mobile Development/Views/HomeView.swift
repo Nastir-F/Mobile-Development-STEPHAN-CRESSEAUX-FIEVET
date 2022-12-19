@@ -10,7 +10,7 @@ import SwiftUI
 struct HomeView: View {
     @StateObject var viewModel = ViewModel()
     @State private var dayOne: Bool = true
-    
+        
     var body: some View {
         VStack {
             Text("Titre Application")  
@@ -41,9 +41,8 @@ struct HomeView: View {
                     }
                 }
                 .onAppear {
-                    viewModel.fetchEvent()
+                    viewModel.fetchEventList()
                 }
-                
             }
             Text("Footer")
         }

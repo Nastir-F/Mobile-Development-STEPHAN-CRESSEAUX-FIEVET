@@ -8,10 +8,6 @@
 import Foundation
 import UIKit
 
-struct Records: Codable {
-    let records: [Event]?
-}
-
 protocol RequestFactoryProtocol {
     func createRequest(urlStr: String) -> URLRequest
     func getEventList(callback: @escaping ([Event]?) -> Void)

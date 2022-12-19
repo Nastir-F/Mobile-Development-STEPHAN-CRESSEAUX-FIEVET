@@ -33,4 +33,6 @@ struct Event: Codable {
     let fields: Fields
 }
 
-
+struct Records: Codable {
+    let records: [Event]?
+}

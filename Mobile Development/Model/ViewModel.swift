@@ -4,12 +4,7 @@ class ViewModel : ObservableObject {
     @Published var events: [Event] = []
     @Published var speakers: [Speaker] = []
     
-    
-    init() {
-        self.fetchEvent()
-    }
-    
-    func fetchEvent() {
+    func fetchEventList() {
         RequestFactory().getEventList { events in
             if let events = events {
                 self.events = [Event](events).sorted {
