@@ -8,11 +8,6 @@
 import Foundation
 import SwiftUI
 
-struct Speaker {
-    let firstName: String
-    let lastName: String
-}
-
 struct Fields: Codable {
     let activity: String
     let type: String
@@ -35,3 +30,5 @@ struct Event: Codable {
     let id: String
     let fields: Fields
 }
+
+
