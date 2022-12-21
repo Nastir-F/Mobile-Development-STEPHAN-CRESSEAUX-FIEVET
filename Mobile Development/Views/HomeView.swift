@@ -50,6 +50,8 @@ struct HomeView: View {
                                     Text(filter.rawValue)
                                 }
                             }.pickerStyle(.menu)
+                            
+                            Spacer()
 
                             Picker("", selection: $selectedType.animation()) {
                                 ForEach(TypeFilter.allTypes, id: \.self) { filter in
@@ -57,13 +59,15 @@ struct HomeView: View {
                                 }
                             }.pickerStyle(.menu)
                             
+                            Spacer()
+                            
                             Picker("", selection: $selectedLocations.animation()) {
                                 ForEach(LocationFilter.allLocations, id: \.self) { filter in
                                     Text(filter.rawValue)
                                 }
                             }.pickerStyle(.menu)
                             
-                        }
+                        }.padding(.top, 15)
                     }
                 }
                 .onAppear {
