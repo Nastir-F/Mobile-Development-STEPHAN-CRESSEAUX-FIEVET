@@ -19,23 +19,23 @@ struct EventDetail: View {
     }
     
     var body: some View {
-        VStack {
+        VStack(spacing: 50) {
             
-            Text(event.fields.activity).font(.largeTitle).padding(.bottom, 20)
+            Text(event.fields.activity).font(.largeTitle)
             
             // *** display time of event **
             HStack {
                 Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time).font(.title2)
                 Text("-").font(.title2)
                 Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time).font(.title2)
-            }.padding(.bottom, 15)
+            }
             
             // *** display activity and location ***
-            Text("This " + event.fields.type + " event will be taking place in the " + event.fields.location + ".").padding(.bottom, 15)
+            Text("This " + event.fields.type + " event will be taking place in the " + event.fields.location + ".")
 
             // *** display speakers ***
             if (event.fields.speakers != nil) {
-                Text("The speaker(s) at that event are: ")
+                Text("The speaker(s) at that event are: ").font(.title3)
                 ForEach(viewModel.speakers, id: \.id) {
                     Text("\($0.fields.fullName)")
                 }
@@ -45,7 +45,6 @@ struct EventDetail: View {
             
             
         }
-        Spacer()
         .onAppear {
             if (event.fields.speakers != nil) {
                 viewModel.fetchSpeakerByEvent(speakersId: event.fields.speakers ?? [])
