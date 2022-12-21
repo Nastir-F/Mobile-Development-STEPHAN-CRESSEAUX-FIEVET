@@ -13,7 +13,7 @@ enum LocationFilter: String {
         return [.all, .presidentDiningHall, .sapphireRoom, .grandBallroom, .emeraldRoom, .pearlRoom, .jadeRoom, .rubyRoom]
     }
     
-    case all = "Event locations"
+    case all = "Sort by location"
     case presidentDiningHall = "President's dining hall"
     case sapphireRoom = "Sapphire room"
     case grandBallroom = "Grand ballroom"

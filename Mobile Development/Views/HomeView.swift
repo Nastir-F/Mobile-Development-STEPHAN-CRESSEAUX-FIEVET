@@ -42,7 +42,6 @@ struct HomeView: View {
                 
                 
                 .toolbar {
-                    
                     ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
                         HStack {
                             Picker("", selection: $selectedDay.animation()) {
@@ -67,7 +66,7 @@ struct HomeView: View {
                                 }
                             }.pickerStyle(.menu)
                             
-                        }.padding(.top, 15)
+                        }
                     }
                 }
                 .onAppear {

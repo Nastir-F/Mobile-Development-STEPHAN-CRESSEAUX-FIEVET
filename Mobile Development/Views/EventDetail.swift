@@ -20,25 +20,32 @@ struct EventDetail: View {
     
     var body: some View {
         VStack {
-            Text("Todo : afficher le détail de l'event en mode cleeeean")
             
-            // Tuto display date
+            Text(event.fields.activity).font(.largeTitle).padding(.bottom, 20)
+            
+            // *** display time of event **
             HStack {
-                // Drop .000Z for the format
-                Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time)
-                Text("-")
-                Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time)
-            }
+                Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time).font(.title2)
+                Text("-").font(.title2)
+                Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time).font(.title2)
+            }.padding(.bottom, 15)
             
-            // Tuto display speakers
+            // *** display activity and location ***
+            Text("This " + event.fields.type + " event will be taking place in the " + event.fields.location + ".").padding(.bottom, 15)
+
+            // *** display speakers ***
             if (event.fields.speakers != nil) {
+                Text("The speaker(s) at that event are: ")
                 ForEach(viewModel.speakers, id: \.id) {
                     Text("\($0.fields.fullName)")
                 }
             } else {
-                Text("No speaker")
+                Text("")
             }
+            
+            
         }
+        Spacer()
         .onAppear {
             if (event.fields.speakers != nil) {
                 viewModel.fetchSpeakerByEvent(speakersId: event.fields.speakers ?? [])

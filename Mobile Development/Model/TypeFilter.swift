@@ -13,7 +13,7 @@ enum TypeFilter: String {
         return [.all, .meal, .panel, .keynote, .workshop, .breakoutSession, .networking]
     }
     
-    case all = "Event types"
+    case all = "Sort by type"
     case meal = "Meal"
     case panel = "Panel"
     case keynote = "Keynote"
