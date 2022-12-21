@@ -42,25 +42,27 @@ struct HomeView: View {
                 
                 
                 .toolbar {
-                    ToolbarItem(placement: .navigationBarLeading) {
-                        Picker("", selection: $selectedDay.animation()) {
-                            ForEach(DayFilter.allDays, id: \.self) { filter in
-                                Text(filter.rawValue)
-                            }
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Picker("", selection: $selectedType.animation()) {
-                            ForEach(TypeFilter.allTypes, id: \.self) { filter in
-                                Text(filter.rawValue)
-                            }
-                        }
-                    }
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Picker("", selection: $selectedLocations/*.animation()*/) {
-                            ForEach(LocationFilter.allLocations, id: \.self) { filter in
-                                Text(filter.rawValue)
-                            }
+                    
+                    ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
+                        HStack {
+                            Picker("", selection: $selectedDay.animation()) {
+                                ForEach(DayFilter.allDays, id: \.self) { filter in
+                                    Text(filter.rawValue)
+                                }
+                            }.pickerStyle(.menu)
+
+                            Picker("", selection: $selectedType.animation()) {
+                                ForEach(TypeFilter.allTypes, id: \.self) { filter in
+                                    Text(filter.rawValue)
+                                }
+                            }.pickerStyle(.menu)
+                            
+                            Picker("", selection: $selectedLocations.animation()) {
+                                ForEach(LocationFilter.allLocations, id: \.self) { filter in
+                                    Text(filter.rawValue)
+                                }
+                            }.pickerStyle(.menu)
+                            
                         }
                     }
                 }
