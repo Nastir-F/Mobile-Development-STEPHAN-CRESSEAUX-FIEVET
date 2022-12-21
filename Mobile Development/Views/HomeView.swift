@@ -7,6 +7,7 @@
 
 import SwiftUI
 
+
 struct HomeView: View {
     @StateObject var viewModel = ViewModel()
     @State private var selectedDay = DayFilter.dayOne
@@ -15,20 +16,16 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
+            
             // *** header of the app ***
-            Text("Timetable")
+            Text("What we have planned for you :) ")
+                .font(.headline)
+                .foregroundColor(.black)
+                .frame(alignment: .leading)
             
             // *** body of the app ***
             NavigationView() {
-                // * tristan's version *
-                //List(self.filterEvent(), id: \.id) { event in
-                //    NavigationLink(destination: EventDetail(event: event)) {
-                //        EventRow(event: event)
-                //    }
-                //}
-                //.navigationTitle("Events")
-                
-                // * chloe *
+
                 List {
                     Section {
                         ForEach(self.filterEvent(), id: \.id) { event in
@@ -45,22 +42,21 @@ struct HomeView: View {
                 
                 
                 .toolbar {
-                    // Voir si le .animation() rend bien selon CLOCLO
-                    ToolbarItem(placement: .confirmationAction) {
-                        Picker("", selection: $selectedDay/*.animation()*/) {
+                    ToolbarItem(placement: .navigationBarLeading) {
+                        Picker("", selection: $selectedDay.animation()) {
                             ForEach(DayFilter.allDays, id: \.self) { filter in
                                 Text(filter.rawValue)
                             }
                         }
                     }
-                    ToolbarItem(placement: .confirmationAction) {
-                        Picker("", selection: $selectedType/*.animation()*/) {
+                    ToolbarItem(placement: .navigationBarTrailing) {
+                        Picker("", selection: $selectedType.animation()) {
                             ForEach(TypeFilter.allTypes, id: \.self) { filter in
                                 Text(filter.rawValue)
                             }
                         }
                     }
-                    ToolbarItem(placement: .confirmationAction) {
+                    ToolbarItem(placement: .navigationBarTrailing) {
                         Picker("", selection: $selectedLocations/*.animation()*/) {
                             ForEach(LocationFilter.allLocations, id: \.self) { filter in
                                 Text(filter.rawValue)
@@ -71,11 +67,15 @@ struct HomeView: View {
                 .onAppear {
                     viewModel.fetchEventList()
                 }
+                
             }
             
             // *** footer of the app ***
             Text("Thank you for using our app !")
+                .font(.subheadline)
         }
+        Spacer()
+        
     }
     
     func filterEvent() -> [Event] {
@@ -113,3 +113,4 @@ struct HomeView_Previews: PreviewProvider {
         HomeView()
     }
 }
+
