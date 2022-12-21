@@ -15,14 +15,35 @@ struct HomeView: View {
     
     var body: some View {
         VStack {
-            Text("Titre Application")  
+            // *** header of the app ***
+            Text("Timetable")
+            
+            // *** body of the app ***
             NavigationView() {
-                List(self.filterEvent(), id: \.id) { event in
-                    NavigationLink(destination: EventDetail(event: event)) {
-                        EventRow(event: event)
+                // * tristan's version *
+                //List(self.filterEvent(), id: \.id) { event in
+                //    NavigationLink(destination: EventDetail(event: event)) {
+                //        EventRow(event: event)
+                //    }
+                //}
+                //.navigationTitle("Events")
+                
+                // * chloe *
+                List {
+                    Section {
+                        ForEach(self.filterEvent(), id: \.id) { event in
+                            NavigationLink(destination: EventDetail(event: event)) {
+                                EventRow(event: event)
+                            }
+                        }
+                    } header: {
+                        Text("Events of the day")
+                    } footer: {
+                        Text("\(self.filterEvent().count) events that day.")
                     }
                 }
-                .navigationTitle("Events")
+                
+                
                 .toolbar {
                     // Voir si le .animation() rend bien selon CLOCLO
                     ToolbarItem(placement: .confirmationAction) {
@@ -51,7 +72,9 @@ struct HomeView: View {
                     viewModel.fetchEventList()
                 }
             }
-            Text("Footer")
+            
+            // *** footer of the app ***
+            Text("Thank you for using our app !")
         }
     }
     
