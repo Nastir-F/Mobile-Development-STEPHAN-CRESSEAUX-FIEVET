@@ -3,6 +3,9 @@ import Foundation
 class ViewModel : ObservableObject {
     @Published var events: [Event] = []
     @Published var speakers: [Speaker] = []
+    @Published var isError: Bool = false
+    @Published var isErrorSpeakers: Bool = false
+    
     
     func fetchEventList() {
         RequestFactory().getEventList { events in
@@ -10,8 +13,13 @@ class ViewModel : ObservableObject {
                 self.events = [Event](events).sorted {
                         $0.fields.start < $1.fields.start
                     }
+            } else {
+                // Dans le cas où aucune donnée n'a été récupérée
+                self.isError = true
             }
         }
+        //Retirer le commentaire sur la ligne suivante pour tester la page d'errreur
+        //self.isError = true
     }
     
     func fetchSpeakerByEvent(speakersId: [String]) {

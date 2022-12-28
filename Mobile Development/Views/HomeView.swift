@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import UIKit
 
 struct HomeView: View {
     @StateObject var viewModel = ViewModel()
@@ -15,62 +15,68 @@ struct HomeView: View {
     @State private var selectedLocations = LocationFilter.all
     
     var body: some View {
-        VStack {
             
-            // *** header of the app ***
-            Text("What we have planned for you :) ")
-                .font(.headline)
-                .foregroundColor(.black)
-                .frame(alignment: .leading)
+        if viewModel.isError {
+            ErrorView()
+        } else {
+            VStack {
             
-            // *** body of the app ***
-            NavigationView() {
-
-                List {
-                    Section {
-                        ForEach(self.filterEvent(), id: \.id) { event in
-                            NavigationLink(destination: EventDetail(event: event)) {
-                                EventRow(event: event)
+                // *** header of the app ***
+                Text("What we have planned for you :) ")
+                    .font(.headline)
+                    .foregroundColor(.black)
+                    .frame(alignment: .leading)
+                
+                // *** body of the app ***
+            
+            
+            
+                NavigationView() {
+                    
+                    List {
+                        Section {
+                            ForEach(self.filterEvent(), id: \.id) { event in
+                                NavigationLink(destination: EventDetail(event: event)) {
+                                    EventRow(event: event)
+                                }
+                            }
+                        } header: {
+                            Text("Events of the day")
+                        } footer: {
+                            Text("\(self.filterEvent().count) events that day.")
+                        }
+                    }
+                    
+                    
+                    .toolbar {
+                        ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
+                            HStack {
+                                Picker("", selection: $selectedDay.animation()) {
+                                    ForEach(DayFilter.allDays, id: \.self) { filter in
+                                        Text(filter.rawValue)
+                                    }
+                                }.pickerStyle(.menu)
+                                
+                                Picker("", selection: $selectedType.animation()) {
+                                    ForEach(TypeFilter.allTypes, id: \.self) { filter in
+                                        Text(filter.rawValue)
+                                    }
+                                }.pickerStyle(.menu)
+                                
+                                Spacer()
+                                
+                                Picker("", selection: $selectedLocations.animation()) {
+                                    ForEach(LocationFilter.allLocations, id: \.self) { filter in
+                                        Text(filter.rawValue)
+                                    }
+                                }.pickerStyle(.menu)
+                                
                             }
                         }
-                    } header: {
-                        Text("Events of the day")
-                    } footer: {
-                        Text("\(self.filterEvent().count) events that day.")
                     }
-                }
-                
-                
-                .toolbar {
-                    ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
-                        HStack {
-                            Picker("", selection: $selectedDay.animation()) {
-                                ForEach(DayFilter.allDays, id: \.self) { filter in
-                                    Text(filter.rawValue)
-                                }
-                            }.pickerStyle(.menu)
-                            
-                            Spacer()
-
-                            Picker("", selection: $selectedType.animation()) {
-                                ForEach(TypeFilter.allTypes, id: \.self) { filter in
-                                    Text(filter.rawValue)
-                                }
-                            }.pickerStyle(.menu)
-                            
-                            Spacer()
-                            
-                            Picker("", selection: $selectedLocations.animation()) {
-                                ForEach(LocationFilter.allLocations, id: \.self) { filter in
-                                    Text(filter.rawValue)
-                                }
-                            }.pickerStyle(.menu)
-                            
-                        }
+                    .onAppear {
+                        viewModel.fetchEventList()
                     }
-                }
-                .onAppear {
-                    viewModel.fetchEventList()
                 }
                 
             }
@@ -90,8 +96,9 @@ struct HomeView: View {
             displayEvents = viewModel.events.filter {
                 $0.fields.start.contains("08T")
             }
+            
         } else {
-            displayEvents =  viewModel.events.filter {
+                displayEvents =  viewModel.events.filter {
                 $0.fields.start.contains("09T")
             }
         }
@@ -111,7 +118,10 @@ struct HomeView: View {
         
         return displayEvents
     }
+
 }
+
+
 
 struct HomeView_Previews: PreviewProvider {
     static var previews: some View {
