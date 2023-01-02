@@ -6,12 +6,22 @@
 //
 import Foundation
 
-struct FieldsErrors: Codable {
-    var isError: Bool
-    var message: String
-}
+enum CustomError: Error {
+     case generic(message: String?)
+     case http
+     case statusCode(code: Int)
+     case parsing
 
-struct Errors: Codable {
-    let id: String
-    var fields: FieldsErrors
+     public var description: String {
+         switch self {
+             case .generic(let msg):
+             return msg ?? "An error occured"
+             case .http:
+             return "Not an http response"
+             case .parsing:
+             return "Parsing error"
+             case .statusCode(let code):
+             return "Status code error : \(code)"
+         }
+     }
 }

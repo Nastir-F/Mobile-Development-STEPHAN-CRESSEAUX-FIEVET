@@ -12,8 +12,8 @@ struct ErrorView: View {
     
     var body: some View {
         VStack(spacing: 50) {
-            Text("No data has been found.").font(.largeTitle)
-            Text("Please check your internet connection.")
+            Text("There was an error. (message à changer selon l'erreur)")
+            Text(viewModel.errorText).font(.largeTitle)
         }
     }
 }

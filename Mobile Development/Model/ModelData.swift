@@ -10,7 +10,7 @@ import UIKit
 
 protocol RequestFactoryProtocol {
     func createRequest(urlStr: String) -> URLRequest
-    func getEventList(callback: @escaping ([Event]?) -> Void)
+    func getEventList(callback: @escaping ([Event]?, CustomError?) -> Void)
     func getSpeakerById(speakerId: String, callback: @escaping (Speaker?) -> Void)
 }
 
@@ -27,26 +27,28 @@ struct RequestFactory: RequestFactoryProtocol {
         return request
     }
     
-    func getEventList(callback: @escaping ([Event]?) -> Void) {
+    func getEventList(callback: @escaping ([Event]?, CustomError?) -> Void) {
         let session = URLSession(configuration: .default)
         let request = createRequest(urlStr: "https://api.airtable.com/v0/appLxCaCuYWnjaSKB/%F0%9F%93%86%20Schedule")
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data, error == nil else {
-                print("Error: \(error?.localizedDescription ?? "Unknown error")")
-                callback(nil)
+                callback(nil, .generic(message: error?.localizedDescription))
                 return
             }
-            guard let responseHttp = response as? HTTPURLResponse, responseHttp.statusCode == 200 else {
-                print("Error: HTTP status code is not 200")
-                callback(nil)
-                return
-            }
-            if let response = try? JSONDecoder().decode(Records.self, from: data) {
-                callback(response.records)
-            } else {
-                print("Error: Unable to decode JSON response")
-                callback(nil)
-            }
+             guard let responseHttp = response as? HTTPURLResponse else {
+                 callback(nil, .http)
+                 return
+             }
+             guard responseHttp.statusCode == 200 else {
+             callback(nil, .statusCode(code: responseHttp.statusCode))
+             return
+             }
+            // Handle parsing error
+             guard let result = try? JSONDecoder().decode(Records.self, from: data) else {
+             callback(nil, .parsing)
+             return
+             }
+            callback(result.records, nil)
         }
         task.resume()
     }
