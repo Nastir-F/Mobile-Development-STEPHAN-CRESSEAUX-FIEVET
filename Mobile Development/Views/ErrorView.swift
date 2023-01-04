@@ -11,9 +11,11 @@ struct ErrorView: View {
     @StateObject var viewModel = ViewModel()
     
     var body: some View {
-        VStack(spacing: 50) {
-            Text("There was an error. (message à changer selon l'erreur)")
-            Text(viewModel.errorText).font(.largeTitle)
+        NavigationView {
+            VStack(alignment : .center) {
+                Text(String(format: "There was an error.", 0))
+                    .font(.largeTitle)
+            }
         }
     }
 }

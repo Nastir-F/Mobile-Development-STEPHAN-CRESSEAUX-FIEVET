@@ -24,13 +24,9 @@ struct HomeView: View {
                 // *** header of the app ***
                 Text("What we have planned for you :) ")
                     .font(.headline)
-                    .foregroundColor(.black)
                     .frame(alignment: .leading)
                 
                 // *** body of the app ***
-            
-            
-            
                 NavigationView() {
                     
                     List {
