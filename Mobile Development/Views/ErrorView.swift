@@ -8,12 +8,12 @@
 import SwiftUI
 
 struct ErrorView: View {
-    @StateObject var viewModel = ViewModel()
+    @State var errorDescription: String
     
     var body: some View {
         NavigationView {
             VStack(alignment : .center) {
-                Text(String(format: "There was an error.", 0))
+                Text(String(format: errorDescription, 0))
                     .font(.largeTitle)
             }
         }
@@ -22,6 +22,8 @@ struct ErrorView: View {
 
 struct ErrorView_Previews: PreviewProvider {
     static var previews: some View {
-        ErrorView()
+        ErrorView(errorDescription: "Hello")
     }
 }
+
+

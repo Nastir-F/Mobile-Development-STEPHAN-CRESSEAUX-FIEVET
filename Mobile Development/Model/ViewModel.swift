@@ -13,6 +13,7 @@ class ViewModel : ObservableObject {
                 print(error!.description)
                 self.isError = true
                 self.errorText = error!.description
+                print(self.errorText)
                 return
             }
             guard let events = events else {

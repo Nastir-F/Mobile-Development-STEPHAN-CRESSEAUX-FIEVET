@@ -21,7 +21,7 @@ enum CustomError: Error {
              case .parsing:
              return "Parsing error"
              case .statusCode(let code):
-             return "Status code error : \(code)"
+             return "Status code error : \(code) The data was not found."
          }
      }
 }
