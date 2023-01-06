@@ -1,5 +1,5 @@
 //
-//  EventsDisplayView.swift
+//  EventDisplayView.swift
 //  Mobile Development
 //
 //  Created by user231747 on 1/6/23.
@@ -14,17 +14,16 @@ struct EventsDisplayView: View {
     @State private var selectedLocations = LocationFilter.all
     
     var body: some View {
-        
         NavigationView() {
-            
+                            
             if viewModel.isError {
                 ErrorView(errorDescription: viewModel.errorText)
             } else {
                 List {
                     Section {
                         ForEach(self.filterEvent(), id: \.id) { event in
-                            NavigationLink(destination: EventDetail(event: event)) {
-                                EventRow(event: event)
+                            NavigationLink(destination: EventDetailView(event: event)) {
+                                EventRowView(event: event)
                             }
                         }
                     } header: {
@@ -33,7 +32,6 @@ struct EventsDisplayView: View {
                         Text("\(self.filterEvent().count) events that day.")
                     }
                 }
-                
                 
                 .toolbar {
                     ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
@@ -66,40 +64,38 @@ struct EventsDisplayView: View {
         .onAppear {
             viewModel.fetchEventList()
         }
-        
-        
     }
-    
     
     func filterEvent() -> [Event] {
-        var displayEvents: [Event] = []
-        // filter by day
-        if (self.selectedDay == .dayOne) {
-            displayEvents = viewModel.events.filter {
-                $0.fields.start.contains("08T")
+            var displayEvents: [Event] = []
+            // filter by day
+            if (self.selectedDay == .dayOne) {
+                displayEvents = viewModel.events.filter {
+                    $0.fields.start.contains("08T")
+                }
+                
+            } else {
+                    displayEvents =  viewModel.events.filter {
+                    $0.fields.start.contains("09T")
+                }
             }
             
-        } else {
-            displayEvents =  viewModel.events.filter {
-                $0.fields.start.contains("09T")
+            // filter by type
+            if (self.selectedType != .all) {
+                displayEvents = displayEvents.filter {
+                    $0.fields.type.contains(selectedType.rawValue)
+                }
             }
-        }
-        
-        // filter by type
-        if (self.selectedType != .all) {
-            displayEvents = displayEvents.filter {
-                $0.fields.type.contains(selectedType.rawValue)
+            // filter by location
+            if (self.selectedLocations != .all) {
+                displayEvents = displayEvents.filter {
+                    $0.fields.location.contains(selectedLocations.rawValue)
+                }
             }
+            
+            return displayEvents
         }
-        // filter by location
-        if (self.selectedLocations != .all) {
-            displayEvents = displayEvents.filter {
-                $0.fields.location.contains(selectedLocations.rawValue)
-            }
-        }
-        
-        return displayEvents
-    }
+
 }
 
 struct EventsDisplayView_Previews: PreviewProvider {
