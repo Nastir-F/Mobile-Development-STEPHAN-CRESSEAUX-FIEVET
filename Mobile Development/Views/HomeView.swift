@@ -32,8 +32,8 @@ struct HomeView: View {
                         List {
                             Section {
                                 ForEach(self.filterEvent(), id: \.id) { event in
-                                    NavigationLink(destination: EventDetail(event: event)) {
-                                        EventRow(event: event)
+                                    NavigationLink(destination: EventDetailView(event: event)) {
+                                        EventRowView(event: event)
                                     }
                                 }
                             } header: {

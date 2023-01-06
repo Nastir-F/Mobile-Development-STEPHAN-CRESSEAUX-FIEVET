@@ -14,16 +14,16 @@
 		6483413229464AFF00671468 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6483413129464AFF00671468 /* Assets.xcassets */; };
 		6483413529464AFF00671468 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6483413429464AFF00671468 /* Preview Assets.xcassets */; };
 		6483413E29464C1C00671468 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6483413D29464C1C00671468 /* Event.swift */; };
-		6483414029464C2800671468 /* EventRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6483413F29464C2800671468 /* EventRow.swift */; };
 		64834144294652EA00671468 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64834143294652EA00671468 /* HomeView.swift */; };
 		64834146294654CC00671468 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64834145294654CC00671468 /* ViewModel.swift */; };
-		648341482946557D00671468 /* EventDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 648341472946557D00671468 /* EventDetail.swift */; };
 		8EA1B20A2958B9F9002D8759 /* Errors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA1B2092958B9F9002D8759 /* Errors.swift */; };
 		8EA2A8DC2947705200577DF2 /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA2A8DB2947705200577DF2 /* ModelData.swift */; };
 		8EA9AFF7294FF37300CBCF11 /* Speaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EA9AFF6294FF37300CBCF11 /* Speaker.swift */; };
 		8EDBD9B1295BBBE000CA8515 /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8EDBD9B0295BBBE000CA8515 /* ErrorView.swift */; };
 		CB84870D29686B14009753BD /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84870C29686B14009753BD /* HeaderView.swift */; };
 		CB84870F29686B23009753BD /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB84870E29686B23009753BD /* FooterView.swift */; };
+		CB848711296872A1009753BD /* EventRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB848710296872A1009753BD /* EventRowView.swift */; };
+		CB8487132968734F009753BD /* EventDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8487122968734F009753BD /* EventDetailView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,16 +35,16 @@
 		6483413129464AFF00671468 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6483413429464AFF00671468 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6483413D29464C1C00671468 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		6483413F29464C2800671468 /* EventRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRow.swift; sourceTree = "<group>"; };
 		64834143294652EA00671468 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		64834145294654CC00671468 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
-		648341472946557D00671468 /* EventDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetail.swift; sourceTree = "<group>"; };
 		8EA1B2092958B9F9002D8759 /* Errors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Errors.swift; sourceTree = "<group>"; };
 		8EA2A8DB2947705200577DF2 /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
 		8EA9AFF6294FF37300CBCF11 /* Speaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Speaker.swift; sourceTree = "<group>"; };
 		8EDBD9B0295BBBE000CA8515 /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
 		CB84870C29686B14009753BD /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		CB84870E29686B23009753BD /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
+		CB848710296872A1009753BD /* EventRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventRowView.swift; sourceTree = "<group>"; };
+		CB8487122968734F009753BD /* EventDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventDetailView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,12 +97,12 @@
 		6483413B29464BC500671468 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				6483413F29464C2800671468 /* EventRow.swift */,
+				CB848710296872A1009753BD /* EventRowView.swift */,
 				64834143294652EA00671468 /* HomeView.swift */,
-				648341472946557D00671468 /* EventDetail.swift */,
 				8EDBD9B0295BBBE000CA8515 /* ErrorView.swift */,
 				CB84870C29686B14009753BD /* HeaderView.swift */,
 				CB84870E29686B23009753BD /* FooterView.swift */,
+				CB8487122968734F009753BD /* EventDetailView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -192,16 +192,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB8487132968734F009753BD /* EventDetailView.swift in Sources */,
 				64834146294654CC00671468 /* ViewModel.swift in Sources */,
 				646B9DF42950806600C0432F /* DayFilter.swift in Sources */,
+				CB848711296872A1009753BD /* EventRowView.swift in Sources */,
 				6483413E29464C1C00671468 /* Event.swift in Sources */,
 				CB84870F29686B23009753BD /* FooterView.swift in Sources */,
 				6483412E29464AFD00671468 /* Mobile_DevelopmentApp.swift in Sources */,
 				8EA1B20A2958B9F9002D8759 /* Errors.swift in Sources */,
 				8EA9AFF7294FF37300CBCF11 /* Speaker.swift in Sources */,
 				64834144294652EA00671468 /* HomeView.swift in Sources */,
-				6483414029464C2800671468 /* EventRow.swift in Sources */,
-				648341482946557D00671468 /* EventDetail.swift in Sources */,
 				8EA2A8DC2947705200577DF2 /* ModelData.swift in Sources */,
 				646B9DF629508A3D00C0432F /* TypeFilter.swift in Sources */,
 				8EDBD9B1295BBBE000CA8515 /* ErrorView.swift in Sources */,

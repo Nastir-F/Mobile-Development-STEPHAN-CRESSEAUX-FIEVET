@@ -1,13 +1,14 @@
 //
-//  EventDetail.swift
+//  EventDetailView.swift
 //  Mobile Development
 //
-//  Created by user231371 on 12/11/22.
+//  Created by user231764 on 1/6/23.
 //
 
+import Foundation
 import SwiftUI
 
-struct EventDetail: View {
+struct EventDetailView: View {
     @StateObject var viewModel = ViewModel()
     let event: Event
     let dateFormatter: DateFormatter
@@ -53,8 +54,8 @@ struct EventDetail: View {
     }
 }
 
-struct EventDetail_Previews: PreviewProvider {
+struct EventDetailView_Previews: PreviewProvider {
     static var previews: some View {
-        EventDetail(event: Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00.000Z", end: "2023-02-08T09:30:00.000Z", location: "President's dining hall", speakers: ["recMsLQRE21DymLru", "recS22dk8RoplL1pN"], notes: "Belinda's going to need a projector for her presentation")))
+        EventDetailView(event: Event(id: "id", fields: Fields(activity: "Breakfast", type: "Meal", start: "2023-02-08T09:00:00.000Z", end: "2023-02-08T09:30:00.000Z", location: "President's dining hall", speakers: ["recMsLQRE21DymLru", "recS22dk8RoplL1pN"], notes: "Belinda's going to need a projector for her presentation")))
     }
 }
