@@ -15,17 +15,14 @@ struct HomeView: View {
             VStack {
             
                 // *** header of the app ***
-                Text("What we have planned for you :) ")
-                    .font(.headline)
-                    .frame(alignment: .leading)
+                HeaderView()
                 
                 // *** body of the app ***
                 
                 EventsDisplayView()
             
             // *** footer of the app ***
-            Text("Thank you for using our app !")
-                .font(.subheadline)
+            FooterView()
         }
         Spacer()
     }
