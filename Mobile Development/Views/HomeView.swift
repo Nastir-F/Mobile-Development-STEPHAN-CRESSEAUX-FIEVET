@@ -16,9 +16,7 @@ struct HomeView: View {
     
     var body: some View {
             
-        if viewModel.isError {
-            ErrorView()
-        } else {
+        
             VStack {
             
                 // *** header of the app ***
@@ -27,53 +25,56 @@ struct HomeView: View {
                 // *** body of the app ***
                 NavigationView() {
                     
-                    List {
-                        Section {
-                            ForEach(self.filterEvent(), id: \.id) { event in
-                                NavigationLink(destination: EventDetail(event: event)) {
-                                    EventRow(event: event)
+                    if viewModel.isError {
+                        ErrorView(errorDescription: viewModel.errorText)
+                    } else {
+                        
+                        List {
+                            Section {
+                                ForEach(self.filterEvent(), id: \.id) { event in
+                                    NavigationLink(destination: EventDetail(event: event)) {
+                                        EventRow(event: event)
+                                    }
+                                }
+                            } header: {
+                                Text("Events of the day")
+                            } footer: {
+                                Text("\(self.filterEvent().count) events that day.")
+                            }
+                        }
+                        
+                        
+                        .toolbar {
+                            ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
+                                HStack {
+                                    Picker("", selection: $selectedDay.animation()) {
+                                        ForEach(DayFilter.allDays, id: \.self) { filter in
+                                            Text(filter.rawValue)
+                                        }
+                                    }.pickerStyle(.menu)
+                                    
+                                    Picker("", selection: $selectedType.animation()) {
+                                        ForEach(TypeFilter.allTypes, id: \.self) { filter in
+                                            Text(filter.rawValue)
+                                        }
+                                    }.pickerStyle(.menu)
+                                    
+                                    Spacer()
+                                    
+                                    Picker("", selection: $selectedLocations.animation()) {
+                                        ForEach(LocationFilter.allLocations, id: \.self) { filter in
+                                            Text(filter.rawValue)
+                                        }
+                                    }.pickerStyle(.menu)
+                                    
                                 }
                             }
-                        } header: {
-                            Text("Events of the day")
-                        } footer: {
-                            Text("\(self.filterEvent().count) events that day.")
                         }
-                    }
-                    
-                    
-                    .toolbar {
-                        ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
-                            HStack {
-                                Picker("", selection: $selectedDay.animation()) {
-                                    ForEach(DayFilter.allDays, id: \.self) { filter in
-                                        Text(filter.rawValue)
-                                    }
-                                }.pickerStyle(.menu)
-                                
-                                Picker("", selection: $selectedType.animation()) {
-                                    ForEach(TypeFilter.allTypes, id: \.self) { filter in
-                                        Text(filter.rawValue)
-                                    }
-                                }.pickerStyle(.menu)
-                                
-                                Spacer()
-                                
-                                Picker("", selection: $selectedLocations.animation()) {
-                                    ForEach(LocationFilter.allLocations, id: \.self) { filter in
-                                        Text(filter.rawValue)
-                                    }
-                                }.pickerStyle(.menu)
-                                
-                            }
-                        }
-                    }
-                    .onAppear {
-                        viewModel.fetchEventList()
                     }
                 }
-                
-            }
+                .onAppear {
+                    viewModel.fetchEventList()
+                }
             
             // *** footer of the app ***
             FooterView()
