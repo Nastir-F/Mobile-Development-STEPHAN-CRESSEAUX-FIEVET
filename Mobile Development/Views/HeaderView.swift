@@ -16,7 +16,7 @@ struct HeaderView : View {
             Text("Planning")
                 .font(.system(size: 36))
                 .foregroundColor(.pink)
-                .frame(width: 300, height: 45, alignment: .topLeading)
+                .frame(width: 300, height: 50, alignment: .center)
         }
     }
 }
