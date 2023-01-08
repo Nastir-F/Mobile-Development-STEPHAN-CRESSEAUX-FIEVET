@@ -43,7 +43,6 @@ struct RequestFactory: RequestFactoryProtocol {
              callback(nil, .statusCode(code: responseHttp.statusCode))
              return
              }
-            // Handle parsing error
              guard let result = try? JSONDecoder().decode(Records.self, from: data) else {
              callback(nil, .parsing)
              return
