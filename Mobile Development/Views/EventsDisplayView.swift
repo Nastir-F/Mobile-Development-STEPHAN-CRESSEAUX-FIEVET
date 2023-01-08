@@ -26,27 +26,29 @@ struct EventsDisplayView: View {
                                 EventRowView(event: event)
                             }
                         }
-                    } header: {
-                        Text("Events of the day")
-                    } footer: {
+                    }
+                    footer: {
                         Text("\(self.filterEvent().count) events that day.")
+                            .font(.subheadline)
                     }
                 }
                 
                 .toolbar {
-                    ToolbarItemGroup(placement: ToolbarItemPlacement .navigationBarTrailing) {
+                    ToolbarItemGroup(placement: .bottomBar) {
                         HStack {
                             Picker("", selection: $selectedDay.animation()) {
                                 ForEach(DayFilter.allDays, id: \.self) { filter in
                                     Text(filter.rawValue)
                                 }
-                            }.pickerStyle(.menu)
+                            }.pickerStyle(MenuPickerStyle())
+                                .tint(.pink)
                             
                             Picker("", selection: $selectedType.animation()) {
                                 ForEach(TypeFilter.allTypes, id: \.self) { filter in
                                     Text(filter.rawValue)
                                 }
-                            }.pickerStyle(.menu)
+                            }.pickerStyle(MenuPickerStyle())
+                                .tint(.pink)
                             
                             Spacer()
                             
@@ -54,7 +56,8 @@ struct EventsDisplayView: View {
                                 ForEach(LocationFilter.allLocations, id: \.self) { filter in
                                     Text(filter.rawValue)
                                 }
-                            }.pickerStyle(.menu)
+                            }.pickerStyle(MenuPickerStyle())
+                                .tint(.pink)
                             
                         }
                     }

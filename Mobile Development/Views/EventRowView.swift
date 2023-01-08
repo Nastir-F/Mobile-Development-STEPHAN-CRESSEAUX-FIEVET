@@ -23,11 +23,14 @@ struct EventRowView: View {
             Image(event.fields.type)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
-                .frame(width: 30)
+                .frame(width: 40)
+            
+            
             Text(event.fields.activity)
                 .fontWeight(.bold)
+            
             HStack {
-                // Drop .000Z for the format
+                // Drop .000Z for the date format
                 Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time)
                 Text("-")
                 Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time)

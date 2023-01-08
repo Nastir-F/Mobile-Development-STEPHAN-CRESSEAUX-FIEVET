@@ -10,11 +10,13 @@ import SwiftUI
 
 struct HeaderView : View {
     @StateObject var viewModel = ViewModel()
-    
+
     var body : some View {
-        // *** header of the app ***
-        Text("What we have planned for you :) ")
-            .font(.headline)
-            .frame(alignment: .leading)
+        VStack {
+            Text("Planning")
+                .font(.system(size: 36))
+                .foregroundColor(.pink)
+                .frame(width: 300, height: 45, alignment: .topLeading)
+        }
     }
 }

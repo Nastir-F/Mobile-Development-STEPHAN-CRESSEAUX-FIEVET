@@ -19,8 +19,6 @@ struct HomeView: View {
                 // *** body of the app ***
                 EventsDisplayView()
             
-                // *** footer of the app ***
-                FooterView()
         }
     }
 }
