@@ -12,6 +12,8 @@ struct EventRowView: View {
     let event: Event
     let dateFormatter: DateFormatter
     
+    let boxSize: CGFloat = 50
+    
     init(event: Event) {
         self.event = event
         dateFormatter = DateFormatter()
@@ -19,22 +21,25 @@ struct EventRowView: View {
     }
     
     var body: some View {
-        HStack() {
+        HStack {
             Image(event.fields.type)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40)
             
-            
-            Text(event.fields.activity)
-                .fontWeight(.bold)
-            
-            HStack {
-                // Drop .000Z for the date format
-                Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time)
-                Text("-")
-                Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time)
-            }
+            VStack(alignment: .leading) {
+
+                Text(event.fields.activity)
+                    .fontWeight(.bold)
+
+                HStack {
+                    // Drop .000Z for the date format
+                    Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time)
+                    Text("-")
+                    Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time)
+                }
+            }.frame(alignment: .leading)
+
         }
     }
 }

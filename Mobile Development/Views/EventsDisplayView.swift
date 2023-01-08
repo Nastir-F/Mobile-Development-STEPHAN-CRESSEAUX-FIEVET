@@ -58,8 +58,7 @@ struct EventsDisplayView: View {
                                 }
                             }.pickerStyle(MenuPickerStyle())
                                 .tint(.pink)
-                            
-                        }
+                        }.frame(alignment: .leading)
                     }
                 }
             }
