@@ -7,21 +7,24 @@
 import Foundation
 
 enum CustomError: Error {
-     case generic(message: String?)
-     case http
-     case statusCode(code: Int)
-     case parsing
-
-     public var description: String {
-         switch self {
-             case .generic(let msg):
-             return msg ?? "An error occured"
-             case .http:
-             return "Not an http response"
-             case .parsing:
-             return "Parsing error"
-             case .statusCode(let code):
-             return "Status code error : \(code) The data was not found."
-         }
-     }
+    
+    // *** different types of errors :
+    case generic(message: String?)
+    case http
+    case statusCode(code: Int)
+    case parsing
+    
+    // *** creating a message corresponding to the error
+    public var description: String {
+        switch self {
+        case .generic(let msg):
+            return msg ?? "An error occured"
+        case .http:
+            return "Not an http response"
+        case .parsing:
+            return "Parsing error"
+        case .statusCode(let code):
+            return "Status code error : \(code) The data was not found."
+        }
+    }
 }

@@ -27,9 +27,12 @@ struct RequestFactory: RequestFactoryProtocol {
         return request
     }
     
+    // *** getting the events from the API
     func getEventList(callback: @escaping ([Event]?, CustomError?) -> Void) {
         let session = URLSession(configuration: .default)
         let request = createRequest(urlStr: "https://api.airtable.com/v0/appLxCaCuYWnjaSKB/%F0%9F%93%86%20Schedule")
+        
+        // *** handling the errors :
         let task = session.dataTask(with: request) { (data, response, error) in
             guard let data = data, error == nil else {
                 callback(nil, .generic(message: error?.localizedDescription))
@@ -47,11 +50,13 @@ struct RequestFactory: RequestFactoryProtocol {
              callback(nil, .parsing)
              return
              }
+            // if there was no errors :
             callback(result.records, nil)
         }
         task.resume()
     }
     
+    // *** getting the speakers from the API
     func getSpeakerById(speakerId: String, callback: @escaping (Speaker?) -> Void) {
         let session = URLSession(configuration: .default)
         let request = createRequest(urlStr: "https://api.airtable.com/v0/appLxCaCuYWnjaSKB/%F0%9F%8E%A4%20Speakers/\(speakerId)")

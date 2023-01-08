@@ -47,8 +47,10 @@ struct EventDetailView: View {
             
         }
         .onAppear {
-            if (event.fields.speakers != nil) {
-                viewModel.fetchSpeakerByEvent(speakersId: event.fields.speakers ?? [])
+            DispatchQueue.main.async {
+                if (event.fields.speakers != nil) {
+                    viewModel.fetchSpeakerByEvent(speakersId: event.fields.speakers ?? [])
+                }
             }
         }
     }
