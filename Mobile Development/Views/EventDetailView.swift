@@ -45,7 +45,8 @@ struct EventDetailView: View {
             }
             
             
-        }
+        }.navigationBackButton(color: .systemPink, text: "Go back to the planning")
+        
         .onAppear {
             DispatchQueue.main.async {
                 if (event.fields.speakers != nil) {
