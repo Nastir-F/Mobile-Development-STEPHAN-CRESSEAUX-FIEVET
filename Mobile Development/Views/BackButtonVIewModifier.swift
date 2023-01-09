@@ -19,7 +19,7 @@ struct BackButtonViewModifier: ViewModifier {
         return content
             // *** hide the current button ***
             .navigationBarBackButtonHidden(true)
-            // *** add our own, with our style
+            // *** add our own "BAck" button, with our style ***
             .navigationBarItems(
                 leading: Button(action: {  presentationMode.wrappedValue.dismiss() }, label: {
                     HStack(spacing: 2) {

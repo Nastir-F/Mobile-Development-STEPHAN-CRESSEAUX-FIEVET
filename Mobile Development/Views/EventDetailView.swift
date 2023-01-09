@@ -20,12 +20,19 @@ struct EventDetailView: View {
     }
     
     var body: some View {
-        VStack(spacing: 50) {
+        VStack(spacing: 40) {
             
-            // *** display the name of the activity ***
+            // *** introduction to the activity highlighted ***
+            // ** icon of the event type **
+            Image(event.fields.type)
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+                .frame(height: 80)
+                
+            // ** name of the activity **
             Text(event.fields.activity).font(.largeTitle)
                 .multilineTextAlignment(.center)
-            
+
             // *** display time of event ***
             HStack {
                 Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time).font(.title2)
@@ -35,19 +42,21 @@ struct EventDetailView: View {
             
             // *** display activity and location ***
             Text("This " + event.fields.type + " event will be taking place in the " + event.fields.location + ".")
-
+                .font(.title3)
+                .padding()
+            
             // *** display speakers ***
             if (event.fields.speakers != nil) {
                 Text("The speaker(s) at that event are: ").font(.title3)
                 ForEach(viewModel.speakers, id: \.id) {
-                    Text("\($0.fields.fullName)")
+                    Text("\($0.fields.fullName)").font(.title3)
                 }
             } else {
                 Text("")
             }
-        // *** change the look of the auto-generated "Back" button to adapt to our design
-        }.navigationBackButton(color: .systemPink, text: "Go back to the planning")
-        .onAppear {
+        // *** change the look of the auto-generated "Back" button to adapt to our design ***
+        }.navigationBackButton(color: .systemPink, text: "Back")
+        .onAppear() {
             DispatchQueue.main.async {
                 if (event.fields.speakers != nil) {
                     viewModel.fetchSpeakerByEvent(speakersId: event.fields.speakers ?? [])

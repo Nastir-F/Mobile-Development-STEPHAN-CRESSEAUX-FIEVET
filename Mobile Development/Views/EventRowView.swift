@@ -32,7 +32,7 @@ struct EventRowView: View {
             // *** written infos about the event, on 2 lines ***
             VStack(alignment: .leading) {
                 
-                // *** nline one : ame of the event ***
+                // *** line one : name of the event ***
                 Text(event.fields.activity)
                     .fontWeight(.bold)
 
