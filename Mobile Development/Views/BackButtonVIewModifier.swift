@@ -29,6 +29,7 @@ struct BackButtonViewModifier: ViewModifier {
                         if let text = text {
                             Text(text)
                                 .foregroundColor(Color(color))
+                                .font(.system(size: 24))
                         }
                     }
                 })
