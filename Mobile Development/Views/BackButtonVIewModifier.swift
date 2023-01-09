@@ -14,9 +14,12 @@ struct BackButtonViewModifier: ViewModifier {
     var color: UIColor
     var text: String?
 
+    // *** modification of the auto-generated "Back" button when viewing an EventDetail view ***
     func body(content: Content) -> some View {
         return content
+            // *** hide the current button ***
             .navigationBarBackButtonHidden(true)
+            // *** add our own, with our style
             .navigationBarItems(
                 leading: Button(action: {  presentationMode.wrappedValue.dismiss() }, label: {
                     HStack(spacing: 2) {

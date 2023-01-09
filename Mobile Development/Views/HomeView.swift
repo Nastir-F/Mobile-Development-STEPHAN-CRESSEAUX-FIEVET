@@ -18,7 +18,6 @@ struct HomeView: View {
                 
                 // *** body of the app ***
                 EventsDisplayView()
-            
         }
     }
 }

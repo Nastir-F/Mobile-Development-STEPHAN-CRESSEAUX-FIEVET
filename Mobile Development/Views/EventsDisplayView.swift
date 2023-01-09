@@ -15,10 +15,12 @@ struct EventsDisplayView: View {
     
     var body: some View {
         NavigationView() {
-                            
+                       
+            // *** load the Error view model if anything doesn't load properly ***
             if viewModel.isError {
                 ErrorView(errorDescription: viewModel.errorText)
             } else {
+                // *** if the data is properly fetched, print it on the app ***
                 List {
                     Section {
                         ForEach(self.filterEvent(), id: \.id) { event in
@@ -27,12 +29,14 @@ struct EventsDisplayView: View {
                             }
                         }
                     }
+                    // *** count of the total of events, works if a filter is applied as well ***
                     footer: {
                         Text("\(self.filterEvent().count) events that day.")
                             .font(.subheadline)
                     }
                 }
                 
+                // *** toolbar to apply filters such as the date, the type of event or the location ***
                 .toolbar {
                     ToolbarItemGroup(placement: .bottomBar) {
                         HStack {

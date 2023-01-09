@@ -21,17 +21,22 @@ struct EventRowView: View {
     }
     
     var body: some View {
+        
         HStack {
+            // *** image associated with the type of the event ***
             Image(event.fields.type)
                 .resizable()
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40)
             
+            // *** written infos about the event, on 2 lines ***
             VStack(alignment: .leading) {
-
+                
+                // *** nline one : ame of the event ***
                 Text(event.fields.activity)
                     .fontWeight(.bold)
 
+                // ***  line two : at what time the event starts and at what time it stops ***
                 HStack {
                     // Drop .000Z for the date format
                     Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time)

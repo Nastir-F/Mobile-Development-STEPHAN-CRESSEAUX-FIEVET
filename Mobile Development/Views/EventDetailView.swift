@@ -22,9 +22,10 @@ struct EventDetailView: View {
     var body: some View {
         VStack(spacing: 50) {
             
+            // *** display the name of the activity ***
             Text(event.fields.activity).font(.largeTitle)
             
-            // *** display time of event **
+            // *** display time of event ***
             HStack {
                 Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time).font(.title2)
                 Text("-").font(.title2)
@@ -43,10 +44,8 @@ struct EventDetailView: View {
             } else {
                 Text("")
             }
-            
-            
+        // *** change the look of the auto-generated "Back" button to adapt to our design
         }.navigationBackButton(color: .systemPink, text: "Go back to the planning")
-        
         .onAppear {
             DispatchQueue.main.async {
                 if (event.fields.speakers != nil) {
