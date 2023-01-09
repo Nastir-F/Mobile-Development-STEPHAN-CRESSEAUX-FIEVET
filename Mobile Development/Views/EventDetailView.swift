@@ -42,8 +42,8 @@ struct EventDetailView: View {
             
             // *** display activity and location ***
             Text("This " + event.fields.type + " event will be taking place in the " + event.fields.location + ".")
-                .font(.title3)
                 .padding()
+                .font(.title3)
             
             // *** display speakers ***
             if (event.fields.speakers != nil) {
@@ -54,6 +54,7 @@ struct EventDetailView: View {
             } else {
                 Text("")
             }
+            
         // *** change the look of the auto-generated "Back" button to adapt to our design ***
         }.navigationBackButton(color: .systemPink, text: "Back")
         .onAppear() {
