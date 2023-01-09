@@ -17,7 +17,7 @@ struct EventRowView: View {
     init(event: Event) {
         self.event = event
         dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     }
     
     var body: some View {
@@ -36,15 +36,13 @@ struct EventRowView: View {
                 Text(event.fields.activity)
                     .fontWeight(.bold)
 
-                // ***  line two : at what time the event starts and at what time it stops ***
+                // ***  line two : at what time the event starts and at what time it stops
                 HStack {
-                    // Drop .000Z for the date format
-                    Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time)
+                    Text(dateFormatter.date(from: String(event.fields.start)) ?? Date(), style: .time)
                     Text("-")
-                    Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time)
+                    Text(dateFormatter.date(from: String(event.fields.end)) ?? Date(), style: .time)
                 }
             }.frame(alignment: .leading)
-
         }
     }
 }

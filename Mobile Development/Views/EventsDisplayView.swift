@@ -98,10 +98,8 @@ struct EventsDisplayView: View {
                     $0.fields.location.contains(selectedLocations.rawValue)
                 }
             }
-            
             return displayEvents
         }
-
 }
 
 struct EventsDisplayView_Previews: PreviewProvider {

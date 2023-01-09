@@ -16,7 +16,7 @@ struct EventDetailView: View {
     init(event: Event) {
         self.event = event
         dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'"
     }
     
     var body: some View {
@@ -35,9 +35,9 @@ struct EventDetailView: View {
 
             // *** display time of event ***
             HStack {
-                Text(dateFormatter.date(from: String(event.fields.start.dropLast(5))) ?? Date(), style: .time).font(.title2)
+                Text(dateFormatter.date(from: String(event.fields.start)) ?? Date(), style: .time).font(.title2)
                 Text("-").font(.title2)
-                Text(dateFormatter.date(from: String(event.fields.end.dropLast(5))) ?? Date(), style: .time).font(.title2)
+                Text(dateFormatter.date(from: String(event.fields.end)) ?? Date(), style: .time).font(.title2)
             }
             
             // *** display activity and location ***
@@ -51,8 +51,6 @@ struct EventDetailView: View {
                 ForEach(viewModel.speakers, id: \.id) {
                     Text("\($0.fields.fullName)").font(.title3)
                 }
-            } else {
-                Text("")
             }
             
         // *** change the look of the auto-generated "Back" button to adapt to our design ***
