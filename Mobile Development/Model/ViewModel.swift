@@ -15,22 +15,19 @@ class ViewModel : ObservableObject {
         RequestFactory().getEventList { events,error in
             DispatchQueue.main.async {
                 
-                // *** if there is an error :
                 guard error == nil else {
-                    print(error!.description)
                     self.isError = true
                     self.errorText = error!.description
-                    print(self.errorText)
                     return
                 }
                 
-                // *** if there is no error but the list returned is empty :
+                // *** if there is no error but the list returned is empty ***
                 guard let events = events else {
                     print("We have an empty list here!")
                     return
                 }
                 
-                // *** if there is no error and the events were returned well
+                // *** if there is no error and the events were returned well ***
                 self.events = [Event](events).sorted {
                     $0.fields.start < $1.fields.start
                 }
@@ -43,7 +40,7 @@ class ViewModel : ObservableObject {
             RequestFactory().getSpeakerById(speakerId: speakerId) { speaker in
                 DispatchQueue.main.async {
                     
-                    // *** getting the speaker(s) of an event with their id
+                    // *** getting the speaker(s) of an event with their id ***
                     if let speaker = speaker {
                         self.speakers.append(speaker)
                         self.objectWillChange.send()

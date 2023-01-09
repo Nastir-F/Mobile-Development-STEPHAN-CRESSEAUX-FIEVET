@@ -29,14 +29,14 @@ struct EventRowView: View {
                 .aspectRatio(contentMode: .fit)
                 .frame(width: 40)
             
-            // *** written infos about the event, on 2 lines ***
+            // *** written info about the event, on 2 lines ***
             VStack(alignment: .leading) {
                 
                 // *** line one : name of the event ***
                 Text(event.fields.activity)
                     .fontWeight(.bold)
 
-                // ***  line two : at what time the event starts and at what time it stops
+                // ***  line two : at what time the event starts and at what time it stops ***
                 HStack {
                     Text(dateFormatter.date(from: String(event.fields.start)) ?? Date(), style: .time)
                     Text("-")

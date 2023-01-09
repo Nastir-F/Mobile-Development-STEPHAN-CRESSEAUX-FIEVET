@@ -8,13 +8,13 @@ import Foundation
 
 enum CustomError: Error {
     
-    // *** different types of errors :
+    // *** different types of errors ***
     case generic(message: String?)
     case http
     case statusCode(code: Int)
     case parsing
     
-    // *** creating a message corresponding to the error
+    // *** creating a message corresponding to the error ***
     public var description: String {
         switch self {
         case .generic(let msg):

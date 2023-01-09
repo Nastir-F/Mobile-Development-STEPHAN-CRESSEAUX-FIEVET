@@ -74,7 +74,7 @@ struct EventsDisplayView: View {
     
     func filterEvent() -> [Event] {
             var displayEvents: [Event] = []
-            // filter by day
+            // *** filter by day ***
             if (self.selectedDay == .dayOne) {
                 displayEvents = viewModel.events.filter {
                     $0.fields.start.contains("08T")
@@ -86,13 +86,13 @@ struct EventsDisplayView: View {
                 }
             }
             
-            // filter by type
+            // *** filter by type ***
             if (self.selectedType != .all) {
                 displayEvents = displayEvents.filter {
                     $0.fields.type.contains(selectedType.rawValue)
                 }
             }
-            // filter by location
+            // *** filter by location ***
             if (self.selectedLocations != .all) {
                 displayEvents = displayEvents.filter {
                     $0.fields.location.contains(selectedLocations.rawValue)
