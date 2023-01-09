@@ -24,6 +24,7 @@ struct EventDetailView: View {
             
             // *** display the name of the activity ***
             Text(event.fields.activity).font(.largeTitle)
+                .multilineTextAlignment(.center)
             
             // *** display time of event ***
             HStack {
